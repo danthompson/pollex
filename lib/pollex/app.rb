@@ -5,8 +5,8 @@ require 'sinatra/base'
 class Pollex
   class App < Sinatra::Base
 
-    # Load New Relic RPM in the production environment.
-    configure(:production) { require 'newrelic_rpm' }
+    # Load New Relic RPM in the production and staging environments.
+    configure(:production, :staging) { require 'newrelic_rpm' }
 
     # Nothing to see here. Redirect to the CloudApp product page. Response is
     # cached for a year.
