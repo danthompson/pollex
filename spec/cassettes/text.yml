@@ -32,7 +32,7 @@
       - "200"
       content-type: 
       - application/json; charset=utf-8
-    body: "{\"content_url\":\"http://cl.ly/hhgttg/chapter1.txt\",\"href\":\"http://my.cl.ly/items/313\",\"name\":\"chapter1.txt\",\"redirect_url\":null,\"created_at\":\"2011-03-26T15:10:02Z\",\"updated_at\":\"2011-03-26T15:10:02Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":0,\"remote_url\":\"http://dev.f.cl.ly/items/0b3u0g1R2F2y1Q3R0j1d/chapter1.txt\",\"icon\":\"http://my.cl.ly/images/new/item-types/text.png\",\"id\":313,\"item_type\":\"text\"}"
+    body: "{\"content_url\":\"http://cl.ly/hhgttg/chapter1.txt\",\"href\":\"http://my.cl.ly/items/313\",\"name\":\"chapter1.txt\",\"redirect_url\":null,\"created_at\":\"2011-03-26T15:10:02Z\",\"updated_at\":\"2011-03-26T15:10:02Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":0,\"remote_url\":\"http://f.cl.ly/items/0b3u0g1R2F2y1Q3R0j1d/chapter1.txt\",\"icon\":\"http://my.cl.ly/images/new/item-types/text.png\",\"id\":313,\"item_type\":\"text\"}"
     http_version: "1.1"
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
@@ -56,19 +56,19 @@
       cache-control: 
       - no-cache
       location: 
-      - http://dev.f.cl.ly/items/0b3u0g1R2F2y1Q3R0j1d/chapter1.txt
+      - http://f.cl.ly/items/0b3u0g1R2F2y1Q3R0j1d/chapter1.txt
       content-length: 
       - "124"
       status: 
       - "302"
       content-type: 
       - text/html; charset=utf-8
-    body: <html><body>You are being <a href="http://dev.f.cl.ly/items/0b3u0g1R2F2y1Q3R0j1d/chapter1.txt">redirected</a>.</body></html>
+    body: <html><body>You are being <a href="http://f.cl.ly/items/0b3u0g1R2F2y1Q3R0j1d/chapter1.txt">redirected</a>.</body></html>
     http_version: "1.1"
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: http://dev.f.cl.ly:80/items/0b3u0g1R2F2y1Q3R0j1d/chapter1.txt
+    uri: http://f.cl.ly:80/items/0b3u0g1R2F2y1Q3R0j1d/chapter1.txt
     body: 
     headers: 
   response: !ruby/struct:VCR::Response 

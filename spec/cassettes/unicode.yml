@@ -32,7 +32,7 @@
       - "200"
       content-type: 
       - application/json; charset=utf-8
-    body: "{\"content_url\":\"http://cl.ly/hhgttg/\\u00f8\\u00e6\\u00d8\\u00fc\\u00f6\\u00e4\\u00df_-.jpeg\",\"href\":\"http://my.cl.ly/items/314\",\"name\":\"\\u00f8\\u00e6\\u00d8\\u00fc\\u00f6\\u00e4\\u00df!&+-.jpeg\",\"redirect_url\":null,\"created_at\":\"2011-03-28T16:27:45Z\",\"updated_at\":\"2011-03-28T16:35:06Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":3,\"remote_url\":\"http://dev.f.cl.ly/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&%2B-.jpeg\",\"icon\":\"http://my.cl.ly/images/new/item-types/image.png\",\"id\":314,\"thumbnail_url\":\"http://localhost:9393/hhgttg\",\"item_type\":\"image\"}"
+    body: "{\"content_url\":\"http://cl.ly/hhgttg/\\u00f8\\u00e6\\u00d8\\u00fc\\u00f6\\u00e4\\u00df_-.jpeg\",\"href\":\"http://my.cl.ly/items/314\",\"name\":\"\\u00f8\\u00e6\\u00d8\\u00fc\\u00f6\\u00e4\\u00df!&+-.jpeg\",\"redirect_url\":null,\"created_at\":\"2011-03-28T16:27:45Z\",\"updated_at\":\"2011-03-28T16:35:06Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":3,\"remote_url\":\"http://f.cl.ly/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&%2B-.jpeg\",\"icon\":\"http://my.cl.ly/images/new/item-types/image.png\",\"id\":314,\"thumbnail_url\":\"http://localhost:9393/hhgttg\",\"item_type\":\"image\"}"
     http_version: "1.1"
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
@@ -56,19 +56,19 @@
       cache-control: 
       - no-cache
       location: 
-      - http://dev.f.cl.ly/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&%2B-.jpeg
+      - http://f.cl.ly/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&%2B-.jpeg
       content-length: 
       - "169"
       status: 
       - "302"
       content-type: 
       - text/html; charset=utf-8
-    body: <html><body>You are being <a href="http://dev.f.cl.ly/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&amp;%2B-.jpeg">redirected</a>.</body></html>
+    body: <html><body>You are being <a href="http://f.cl.ly/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&amp;%2B-.jpeg">redirected</a>.</body></html>
     http_version: "1.1"
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: http://dev.f.cl.ly:80/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&+-.jpeg
+    uri: http://f.cl.ly:80/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&+-.jpeg
     body: 
     headers: 
   response: !ruby/struct:VCR::Response 
