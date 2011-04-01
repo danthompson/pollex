@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'support/vcr'
-require 'mini_magick'
 
 require 'pollex'
 
