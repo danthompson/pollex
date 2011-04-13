@@ -37,37 +37,6 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: http://cl.ly:80/hhgttg/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F_-.jpeg
-    body: 
-    headers: 
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
-      code: 302
-      message: Found
-    headers: 
-      date: 
-      - Mon, 28 Mar 2011 16:44:13 GMT
-      server: 
-      - Apache/2.2.17 (Unix) mod_ssl/2.2.17 OpenSSL/0.9.8l DAV/2 Phusion_Passenger/3.0.5
-      x-powered-by: 
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.5
-      x-runtime: 
-      - "192"
-      cache-control: 
-      - no-cache
-      location: 
-      - http://f.cl.ly/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&%2B-.jpeg
-      content-length: 
-      - "169"
-      status: 
-      - "302"
-      content-type: 
-      - text/html; charset=utf-8
-    body: <html><body>You are being <a href="http://f.cl.ly/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&amp;%2B-.jpeg">redirected</a>.</body></html>
-    http_version: "1.1"
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
-    method: :get
     uri: http://f.cl.ly:80/items/3W0t0p20002x3J3U0a1S/%C3%B8%C3%A6%C3%98%C3%BC%C3%B6%C3%A4%C3%9F!&+-.jpeg
     body: 
     headers: 

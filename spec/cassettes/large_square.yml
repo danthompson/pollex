@@ -37,37 +37,6 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: http://cl.ly:80/hhgttg/cover.png
-    body: 
-    headers: 
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
-      code: 302
-      message: Found
-    headers: 
-      date: 
-      - Sat, 26 Mar 2011 15:01:41 GMT
-      server: 
-      - Apache/2.2.17 (Unix) mod_ssl/2.2.17 OpenSSL/0.9.8l DAV/2 Phusion_Passenger/3.0.5
-      x-powered-by: 
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.5
-      x-runtime: 
-      - "349"
-      cache-control: 
-      - no-cache
-      location: 
-      - http://f.cl.ly/items/0b3u0g1R2F2y1Q3R0j1d/cover.png
-      content-length: 
-      - "121"
-      status: 
-      - "302"
-      content-type: 
-      - text/html; charset=utf-8
-    body: <html><body>You are being <a href="http://f.cl.ly/items/0b3u0g1R2F2y1Q3R0j1d/cover.png">redirected</a>.</body></html>
-    http_version: "1.1"
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
-    method: :get
     uri: http://f.cl.ly:80/items/0b3u0g1R2F2y1Q3R0j1d/cover.png
     body: 
     headers: 

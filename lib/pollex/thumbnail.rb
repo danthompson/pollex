@@ -26,21 +26,21 @@ class Pollex
     end
 
     def filename
-      File.basename content_url
+      File.basename remote_url
     end
 
     def type
-      File.extname content_url
+      File.extname remote_url
     end
 
   protected
 
-    def content_url
-      URI.encode drop['content_url']
+    def remote_url
+      drop['remote_url']
     end
 
     def image
-      @image ||= MiniMagick::Image.open(content_url)
+      @image ||= MiniMagick::Image.open(remote_url)
     end
 
     def resize_image
@@ -57,7 +57,7 @@ class Pollex
     end
 
     def tempfile
-      @tempfile ||= Tempfile.new(File.basename(content_url))
+      @tempfile ||= Tempfile.new(File.basename(remote_url))
     end
   end
 
