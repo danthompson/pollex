@@ -49,9 +49,18 @@ class Pollex
     get '/:slug' do |slug|
       thumbnail = Thumbnail.new find_drop(slug)
 
-      cache_control :public, :max_age => 900
-      send_file thumbnail.file, :disposition => 'inline',
-                                :type        => thumbnail.type
+      if thumbnail.drop.image?
+        # Render the thumbnailed image if the **Drop** is an image. Response is
+        # cached for 15 minutes.
+        cache_control :public, :max_age => 900
+        send_file thumbnail.file, :disposition => 'inline',
+                                  :type        => thumbnail.type
+      else
+        # For non-images, premanently redirect to a file type icon. Response is
+        # cached for one year.
+        cache_control :public, :max_age => 31557600
+        redirect "/icons/#{ thumbnail.drop.item_type }.png", 301
+      end
     end
 
     # Don't need to return anything special for a 404.
@@ -60,16 +69,6 @@ class Pollex
     end
 
   protected
-
-    ## Generate the thumbnail for a given `slug`. Handle `Drop::NotFound` and
-    ## `Thumbnail::NotImage errors and render the not found response.
-    #def generate_thumbnail(slug)
-      #Pollex::Thumbnail.generate slug
-    #rescue Drop::NotFound
-      #not_found
-    #rescue Thumbnail::NotImage
-      #not_found
-    #end
 
     # Find and return a **Drop** with the given `slug`. Handle `Drop::NotFound`
     # errors and render the not found response.

@@ -49,12 +49,13 @@ describe Pollex::App do
     end
   end
 
-  it 'returns not found for a non-image drop' do
+  it 'returns a glyph for a non-image drop' do
     VCR.use_cassette 'text', :record => :none do
       get '/hhgttg'
 
-      last_response.not_found?.must_equal true
-      last_response.body.must_equal '<h1>Not Found</h1>'
+      last_response.status.must_equal 301
+      last_response.headers['Location'].must_equal 'http://example.org/icons/text.png'
+      last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
     end
   end
 
