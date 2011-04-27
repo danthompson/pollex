@@ -1,21 +1,27 @@
 require 'sinatra/base'
 
-# Pollex
-# ------
 class Pollex
+
+  # App
+  # ------
+  #
+  # **App** is a simple Sinatra app that generates and returns thumbnails of
+  # CloudApp Drops. Images are pulled from their remote location and thumbnailed
+  # using **MiniMagick**. Any non-image Drop returns a glyph representing the
+  # type of file it is.
   class App < Sinatra::Base
 
     # Load New Relic RPM in the production and staging environments.
     configure(:production, :staging) { require 'newrelic_rpm' }
 
-    # Nothing to see here. Redirect to the CloudApp product page. Response is
-    # cached for a year.
+    # The home page. Nothing to see here. Redirect to the CloudApp product page.
+    # Response is cached for one year.
     get '/' do
       cache_control :public, :max_age => 31557600
       redirect 'http://getcloudapp.com'
     end
 
-    # Use the public app's favicon. Response is cached for a year.
+    # Redirect to the public app's favicon. Response is cached for one year.
     get '/favicon.ico' do
       cache_control :public, :max_age => 31557600
       redirect 'http://cl.ly/favicon.ico'
@@ -38,12 +44,14 @@ class Pollex
 
   protected
 
+    # Generate the thumbnail for a given `slug`. Handle `Drop::NotFound` and
+    # `Thumbnail::NotImage errors and render the not found response.
     def generate_thumbnail(slug)
       thumbnail = Pollex::Thumbnail.generate slug
     rescue Drop::NotFound
-      raise Sinatra::NotFound
+      not_found
     rescue Thumbnail::NotImage
-      raise Sinatra::NotFound
+      not_found
     end
 
   end
