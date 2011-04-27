@@ -1,0 +1,40 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: http://api.cld.me:80/hhgttg
+    body: 
+    headers: 
+      accept: 
+      - application/json
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      server: 
+      - nginx/0.7.67
+      date: 
+      - Wed, 27 Apr 2011 19:22:25 GMT
+      content-type: 
+      - application/json; charset=utf-8
+      vary: 
+      - Accept
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      last-modified: 
+      - Wed, 27 Apr 2011 19:22:02 GMT
+      x-runtime: 
+      - "0.012266"
+      cache-control: 
+      - public; max-age=900
+      content-length: 
+      - "474"
+      x-varnish: 
+      - "1093857261"
+      age: 
+      - "0"
+      via: 
+      - 1.1 varnish
+    body: "{\"content_url\":\"http://cl.ly/hhgttg/Chapter_1.pdf\",\"href\":\"http://my.cl.ly/items/4693287\",\"name\":\"Chapter 1.pdf\",\"redirect_url\":null,\"created_at\":\"2011-04-27T19:22:02Z\",\"updated_at\":\"2011-04-27T19:22:02Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":0,\"remote_url\":\"http://f.cl.ly/items/1U0w400W2X3i2p440D0O/Chapter%201.pdf\",\"icon\":\"http://my.cl.ly/images/new/item-types/unknown.png\",\"id\":4693287,\"item_type\":\"pdf\"}"
+    http_version: "1.1"

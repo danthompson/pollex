@@ -7,8 +7,8 @@ class Pollex
   #
   # **App** is a simple Sinatra app that generates and returns thumbnails of
   # CloudApp Drops. Images are pulled from their remote location and thumbnailed
-  # using **MiniMagick**. Any non-image Drop returns a glyph representing the
-  # type of file it is.
+  # using **MiniMagick**. Any non-image Drop returns an icon representing its
+  # type.
   class App < Sinatra::Base
 
     # Load New Relic RPM and Hoptoad in the production and staging environments.
@@ -44,22 +44,18 @@ class Pollex
       redirect 'http://cl.ly/favicon.ico'
     end
 
-    # Generate a thumbnail for a `Drop` given its slug. Thumbnails are cached
-    # for up to 15 minutes.
+    # Generate and render a thumbnail for an image `Drop` given its slug or
+    # render a file type icon. Thumbnails are cached for 15 minutes and file
+    # type icons are cached for one year.
     get '/:slug' do |slug|
       thumbnail = Thumbnail.new find_drop(slug)
 
       if thumbnail.drop.image?
-        # Render the thumbnailed image if the **Drop** is an image. Response is
-        # cached for 15 minutes.
         cache_control :public, :max_age => 900
-        send_file thumbnail.file, :disposition => 'inline',
-                                  :type        => thumbnail.type
+        render_thumbnail thumbnail
       else
-        # For non-images, redirect to a file type icon. Response is cached for
-        # one year.
         cache_control :public, :max_age => 31557600
-        redirect "/icons/#{ thumbnail.drop.item_type }.png"
+        render_drop_icon thumbnail
       end
     end
 
@@ -76,6 +72,28 @@ class Pollex
       Drop.find slug
     rescue Drop::NotFound
       not_found
+    end
+
+    # Render the thumbnailed image if the **Drop** is an image. Response is
+    # cached for 15 minutes.
+    def render_thumbnail(thumbnail)
+      send_file thumbnail.file, :disposition => 'inline',
+                                :type        => thumbnail.type
+    end
+
+    # For non-images, redirect to a file type icon. Response is cached for one
+    # year.
+    def render_drop_icon(thumbnail)
+      icon = icon_exists?(thumbnail.drop.item_type) ?
+               thumbnail.drop.item_type :
+               'unknown'
+
+      redirect "/icons/#{ icon }.png"
+    end
+
+    # Returns true if the icon for the given `type` exists.
+    def icon_exists?(type)
+      File.exists? File.join(settings.public, 'icons', "#{ type }.png")
     end
 
   end

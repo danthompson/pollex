@@ -49,12 +49,22 @@ describe Pollex::App do
     end
   end
 
-  it 'returns a glyph for a non-image drop' do
+  it 'redirects to the icon for a non-image drop' do
     VCR.use_cassette 'text', :record => :none do
       get '/hhgttg'
 
-      last_response.status.must_equal 302
+      last_response.redirect?.must_equal true
       last_response.headers['Location'].must_equal 'http://example.org/icons/text.png'
+      last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
+    end
+  end
+
+  it 'redirects to the unknown icon for a file type without an icon' do
+    VCR.use_cassette 'pdf', :record => :new_episodes do
+      get '/hhgttg'
+
+      last_response.redirect?.must_equal true
+      last_response.headers['Location'].must_equal 'http://example.org/icons/unknown.png'
       last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
     end
   end
