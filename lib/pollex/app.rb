@@ -47,7 +47,7 @@ class Pollex
     # Generate a thumbnail for a `Drop` given its slug. Thumbnails are cached
     # for up to 15 minutes.
     get '/:slug' do |slug|
-      thumbnail = generate_thumbnail slug
+      thumbnail = Thumbnail.new find_drop(slug)
 
       cache_control :public, :max_age => 900
       send_file thumbnail.file, :disposition => 'inline',
@@ -61,13 +61,21 @@ class Pollex
 
   protected
 
-    # Generate the thumbnail for a given `slug`. Handle `Drop::NotFound` and
-    # `Thumbnail::NotImage errors and render the not found response.
-    def generate_thumbnail(slug)
-      thumbnail = Pollex::Thumbnail.generate slug
+    ## Generate the thumbnail for a given `slug`. Handle `Drop::NotFound` and
+    ## `Thumbnail::NotImage errors and render the not found response.
+    #def generate_thumbnail(slug)
+      #Pollex::Thumbnail.generate slug
+    #rescue Drop::NotFound
+      #not_found
+    #rescue Thumbnail::NotImage
+      #not_found
+    #end
+
+    # Find and return a **Drop** with the given `slug`. Handle `Drop::NotFound`
+    # errors and render the not found response.
+    def find_drop(slug)
+      Drop.find slug
     rescue Drop::NotFound
-      not_found
-    rescue Thumbnail::NotImage
       not_found
     end
 

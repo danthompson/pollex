@@ -13,21 +13,9 @@ class Pollex
     # Raised when the drop being thumbaniled is not an image.
     class NotImage < StandardError; end
 
-    # Find a **Drop** given a `slug` and use the JSON response to create and
-    # return a new **Thumbnail**.
-    def self.generate(slug)
-      Thumbnail.new Drop.find(slug)
-    end
-
-    # Accepts a Hash representing the **Drop** to thumbnail. Raises `NotImage`
-    # unless the **Drop** is an image.
-    def initialize(drop)
-      raise NotImage.new unless drop['item_type'] == 'image'
-
-      super
-    end
-
     def file
+      raise NotImage.new unless drop.image?
+
       @file ||= begin
                   resize_image
                   image.
@@ -50,7 +38,7 @@ class Pollex
 
     # The URL of the **Drop's** remote file.
     def remote_url
-      drop['remote_url']
+      drop.remote_url
     end
 
     # Load and return the **Drop's** remote file.

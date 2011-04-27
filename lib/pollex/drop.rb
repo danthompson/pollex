@@ -1,27 +1,28 @@
 require 'json'
 require 'httparty'
 require 'net/http'
+require 'ostruct'
 
 class Pollex
-  class Drop
-    DOMAIN = ENV.fetch 'CLOUDAPP_DOMAIN', 'cl.ly'
+  class Drop < OpenStruct
 
-    class NotFound < StandardError; end
+    include  HTTParty
+    base_uri ENV.fetch('CLOUDAPP_DOMAIN', 'api.cld.me')
 
     def self.find(slug)
-      response slug
-    end
-
-  protected
-
-    def self.response(slug)
-      response = HTTParty.get "http://#{ DOMAIN }/#{ slug }",
-                              :headers => { 'Accept' => 'application/json' }
+      response = get "/#{ slug }",
+                     :headers => { 'Accept' => 'application/json' }
 
       raise NotFound.new unless response.ok?
 
-      response
+      Drop.new response.parsed_response
     end
+
+    def image?
+      item_type == 'image'
+    end
+
+    class NotFound < StandardError; end
 
   end
 end
