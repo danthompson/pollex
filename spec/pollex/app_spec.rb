@@ -53,7 +53,7 @@ describe Pollex::App do
     VCR.use_cassette 'text', :record => :none do
       get '/hhgttg'
 
-      last_response.status.must_equal 301
+      last_response.status.must_equal 302
       last_response.headers['Location'].must_equal 'http://example.org/icons/text.png'
       last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
     end

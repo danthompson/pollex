@@ -56,10 +56,10 @@ class Pollex
         send_file thumbnail.file, :disposition => 'inline',
                                   :type        => thumbnail.type
       else
-        # For non-images, premanently redirect to a file type icon. Response is
-        # cached for one year.
+        # For non-images, redirect to a file type icon. Response is cached for
+        # one year.
         cache_control :public, :max_age => 31557600
-        redirect "/icons/#{ thumbnail.drop.item_type }.png", 301
+        redirect "/icons/#{ thumbnail.drop.item_type }.png"
       end
     end
 
