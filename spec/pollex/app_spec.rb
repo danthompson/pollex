@@ -17,7 +17,7 @@ describe Pollex::App do
     get '/'
 
     last_response.redirect?.must_equal true
-    last_response.headers['Location'].must_equal      'http://getcloudapp.com'
+    last_response.headers['Location'].must_equal 'http://getcloudapp.com'
     last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
   end
 
@@ -25,7 +25,7 @@ describe Pollex::App do
     get '/favicon.ico'
 
     last_response.redirect?.must_equal true
-    last_response.headers['Location'].must_equal      'http://cl.ly/favicon.ico'
+    last_response.headers['Location'].must_equal 'http://cl.ly/favicon.ico'
     last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
   end
 
@@ -34,7 +34,7 @@ describe Pollex::App do
       get '/hhgttg'
 
       last_response.ok?.must_equal true
-      last_response.headers['Content-Type'].must_equal        'image/png'
+      last_response.headers['Content-Type'].must_equal 'image/png'
       last_response.headers['Content-Disposition'].must_equal 'inline'
       last_response.headers['Cache-Control'].must_equal 'public, max-age=900'
     end
@@ -44,7 +44,7 @@ describe Pollex::App do
     VCR.use_cassette 'nonexistent', :record => :none do
       get '/hhgttg'
 
-      last_response.not_found?.must_equal  true
+      last_response.not_found?.must_equal true
       last_response.body.must_equal '<h1>Not Found</h1>'
     end
   end
@@ -53,7 +53,7 @@ describe Pollex::App do
     VCR.use_cassette 'text', :record => :none do
       get '/hhgttg'
 
-      last_response.not_found?.must_equal  true
+      last_response.not_found?.must_equal true
       last_response.body.must_equal '<h1>Not Found</h1>'
     end
   end
