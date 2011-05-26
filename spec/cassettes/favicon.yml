@@ -1,0 +1,92 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: http://api.cld.me:80/hhgttg
+    body: 
+    headers: 
+      accept: 
+      - application/json
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      server: 
+      - nginx/0.7.67
+      date: 
+      - Thu, 26 May 2011 16:43:44 GMT
+      content-type: 
+      - application/json
+      vary: 
+      - Accept
+      cache-control: 
+      - public, max-age=900
+      content-length: 
+      - "536"
+      x-varnish: 
+      - 1318705177 1318575049
+      age: 
+      - "233"
+      via: 
+      - 1.1 varnish
+    body: "{\"content_url\":\"http://cl.ly/hhgttg/favicon.ico\",\"href\":\"http://my.cl.ly/items/25\",\"name\":\"favicon.ico\",\"redirect_url\":null,\"created_at\":\"2011-04-24T01:07:34Z\",\"updated_at\":\"2011-04-24T01:07:34Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":0,\"remote_url\":\"http://stage.f.cl.ly/items/hhgttg/favicon.ico\",\"icon\":\"http://my.cl.ly/images/new/item-types/image.png\",\"id\":25,\"thumbnail_url\":\"http://thumbs.cl.ly/hhgttg\",\"item_type\":\"image\"}"
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: http://stage.f.cl.ly:80/items/hhgttg/favicon.ico
+    body: 
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-amz-id-2: 
+      - xJSHkaFPB5jBjKxTEMke6mgefvZ0veXA1XSDovgQ60kdClkOH1P6FO3dWR8ekWs5
+      x-amz-request-id: 
+      - EAC35CEC748E0CFE
+      date: 
+      - Thu, 26 May 2011 16:43:45 GMT
+      last-modified: 
+      - Sun, 24 Apr 2011 01:07:37 GMT
+      etag: 
+      - "\"567d2d49d2d30e2db956d680a4d03f25\""
+      accept-ranges: 
+      - bytes
+      content-type: 
+      - image/vnd.microsoft.icon
+      content-length: 
+      - "1150"
+      server: 
+      - AmazonS3
+    body: !binary |
+      AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAA
+      ACAcAAAgHAAAAAAAAAAAAACFMhFBhTIR0IUyEeaFMhHmhTIR5oUyEeaFMhHm
+      hTIR5oUyEeaFMhHmhTIR5oUyEeaFMhHmhTIR5oUyEdCFMhFBhzUTzpxHHfek
+      TSD/pE0g/6RNIP+kTSD/pE0g/6RNIP+kTSD/pE0g/6RNIP+kTSD/pE0g/6RN
+      IP+cRx33hzUTzog4FuamUSP/plEj/6ZRI/+mUSP/plEj/6ZRI/+mUSP/plEj
+      /6ZRI/+mUSP/plEj/6ZRI/+mUSP/plEj/4g4FuaKOxrmqVYo/6dVJ/+FQB3/
+      bzMW/2swFf9rMBX/azAV/2swFf9rMBX/azAV/3Q1GP+KQx//qFUo/6lWKP+K
+      OxrmjD8d5qtbLP+HRyT/s4dv/9+7pf/oxbD/6MWw/+jFsP/oxbD/6MWw/+jF
+      sP/WsJr/qXtj/4lHIv+rWyz/jD8d5o5CIeavYTL/vpV//+rLuP/qy7j/6su4
+      /+rLuP/qy7j/6su4/+rLuP/qy7j/6su4/+rLuP+ziXH/rF8x/45CIeaQRiXm
+      smc3/+jLu//t0sL/7dLC/+3Swv/t0sL/7dLC/+3Swv/t0sL/7dLC/+3Swv/t
+      0sL/7NDA/7NrPf+QRiXmkkoo5rRtPP/eu6X/8NrN//Dazf/w2s3/8NrN//Da
+      zf/w2s3/8NrN//Dazf/w2s3/8NrN/+3Vx/+1cD//kkoo5pVOLOa4c0L/vXxO
+      /+G/qP/04tj/9OLY//Ti2P/04tj/9OLY//Ti2P/04tj/9OLY//Ti2P/XrZH/
+      uHNC/5VOLOaXUjDmu3lH/7t5R/+7eUf/vX1M//Pl3P/36uL/9+ri//fq4v/3
+      6uL/9+ri/+/bzv/YsJL/vHpJ/7t5R/+XUjDmmVY05r5/Tf++f03/vn9N/75/
+      Tf/kybX/+vLs//ry7P/68uz/+vLs/+fOu/++f03/vn9N/75/Tf++f03/mVY0
+      5ptZN+bBhVH/wYVR/8GFUf/BhVH/xY1d/+fPuv/69O7/+fHq/+XLtf/Eiln/
+      wYVR/8GFUf/BhVH/wYVR/5tZN+adXTrmxIlX/8SJVv/EiVb/xIlW/8SJVv/E
+      iVb/xIlW/8SJVv/EiVb/xIlW/8SJVv/EiVb/xIlW/8SJV/+dXTrmnmA95sqV
+      Y//Gj1r/xo5Z/8aOWf/Gjln/xo5Z/8aOWf/Gjln/xo5Z/8aOWf/Gjln/xo5Z
+      /8aPWv/KlWP/nmA95qBiQNDGmXX206h//9Kme//Spnv/0qZ7/9Kme//Spnv/
+      0qZ7/9Kme//Spnv/0qZ7/9Kme//TqH//xpl19qBiQNChZUI5oWVCtaFlQuah
+      ZULmoWVC5qFlQuahZULmoWVC5qFlQuahZULmoWVC5qFlQuahZULmoWVC5qFl
+      QrWhZUI5AAAAAAAA8L8AAAAAAAAAAAAACQoAAAAAAAAAAAAAAAAAAAAAAAAA
+      AQAAAAAAAAAAAAD//wAA//8AAAMFAAAAAA==
+
+    http_version: "1.1"

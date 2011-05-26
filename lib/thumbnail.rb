@@ -34,6 +34,7 @@ class Thumbnail < Struct.new(:drop)
   def type
     File.extname remote_url
   end
+  alias_method :extname, :type
 
 protected
 
@@ -46,7 +47,8 @@ protected
   def image
     @image ||= begin
                  request = EM::HttpRequest.new(remote_url).get
-                 MiniMagick::Image.read request.response
+
+                 MiniMagick::Image.read request.response, extname
                end
   end
 
