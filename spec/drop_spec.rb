@@ -1,18 +1,18 @@
 require 'spec_helper'
 require 'support/vcr'
 
-require 'pollex'
+require 'drop'
 
-describe Pollex::Drop do
+describe Drop do
 
   it 'is not an image' do
-    drop = Pollex::Drop.new :item_type => 'text'
+    drop = Drop.new :item_type => 'text'
 
     deny { drop.image? }
   end
 
   it 'is an image' do
-    drop = Pollex::Drop.new :item_type => 'image'
+    drop = Drop.new :item_type => 'image'
 
     assert { drop.image? }
   end
@@ -20,10 +20,10 @@ describe Pollex::Drop do
   it 'finds a drop' do
     EM.synchrony do
       VCR.use_cassette 'small' do
-        drop = Pollex::Drop.find 'hhgttg'
+        drop = Drop.find 'hhgttg'
         EM.stop
 
-        assert { drop.is_a? Pollex::Drop }
+        assert { drop.is_a? Drop }
         assert { drop.href       == 'http://my.cl.ly/items/307' }
         assert { drop.remote_url == 'http://f.cl.ly/items/hhgttg/cover.png' }
         assert { drop.redirect_url.nil? }
@@ -35,7 +35,7 @@ describe Pollex::Drop do
     EM.synchrony do
       VCR.use_cassette 'nonexistent' do
         assert do
-          rescuing { Pollex::Drop.find('hhgttg') }.is_a? Pollex::Drop::NotFound
+          rescuing { Drop.find('hhgttg') }.is_a? Drop::NotFound
         end
 
         EM.stop

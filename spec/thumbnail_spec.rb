@@ -2,19 +2,20 @@ require 'spec_helper'
 require 'support/vcr'
 require 'mini_magick'
 
-require 'pollex'
+require 'drop'
+require 'thumbnail'
 
-describe Pollex::Thumbnail do
+describe Thumbnail do
 
   it 'generates a thumbnail' do
     EM.synchrony do
       VCR.use_cassette 'same_size' do
-        drop = Pollex::Drop.find 'hhgttg'
+        drop = Drop.find 'hhgttg'
         EM.stop
 
-        thumb = Pollex::Thumbnail.new drop
+        thumb = Thumbnail.new drop
         deny   { thumb.nil? }
-        assert { thumb.is_a? Pollex::Thumbnail }
+        assert { thumb.is_a? Thumbnail }
 
         deny { thumb.file.closed? }
         assert do
@@ -30,10 +31,10 @@ describe Pollex::Thumbnail do
   it 'scales down a large image' do
     EM.synchrony do
       VCR.use_cassette 'large_same_dimensions' do
-        drop = Pollex::Drop.find 'hhgttg'
+        drop = Drop.find 'hhgttg'
         EM.stop
 
-        thumb = Pollex::Thumbnail.new drop
+        thumb = Thumbnail.new drop
 
         assert do
           MiniMagick::Image.open(thumb.file.path)['dimensions'] == [ 200, 150 ]
@@ -45,10 +46,10 @@ describe Pollex::Thumbnail do
   it 'scales down and crops a large image' do
     EM.synchrony do
       VCR.use_cassette 'large_square' do
-        drop = Pollex::Drop.find 'hhgttg'
+        drop = Drop.find 'hhgttg'
         EM.stop
 
-        thumb = Pollex::Thumbnail.new drop
+        thumb = Thumbnail.new drop
 
         assert do
           MiniMagick::Image.open(thumb.file.path)['dimensions'] == [ 200, 150 ]
@@ -60,10 +61,10 @@ describe Pollex::Thumbnail do
   it "doesn't scale up a small image" do
     EM.synchrony do
       VCR.use_cassette 'small' do
-        drop = Pollex::Drop.find 'hhgttg'
+        drop = Drop.find 'hhgttg'
         EM.stop
 
-        thumb = Pollex::Thumbnail.new drop
+        thumb = Thumbnail.new drop
 
         assert do
           MiniMagick::Image.open(thumb.file.path)['dimensions'] == [ 1, 1 ]
@@ -75,12 +76,12 @@ describe Pollex::Thumbnail do
   it "doesn't thumbnail a non-image" do
     EM.synchrony do
       VCR.use_cassette 'text' do
-        drop = Pollex::Drop.find 'hhgttg'
+        drop = Drop.find 'hhgttg'
         EM.stop
 
-        thumb = Pollex::Thumbnail.new drop
+        thumb = Thumbnail.new drop
 
-        assert { rescuing { thumb.file }.is_a? Pollex::Thumbnail::NotImage }
+        assert { rescuing { thumb.file }.is_a? Thumbnail::NotImage }
       end
     end
   end
@@ -88,10 +89,10 @@ describe Pollex::Thumbnail do
   it 'handles unicode urls' do
     EM.synchrony do
       VCR.use_cassette 'unicode' do
-        drop = Pollex::Drop.find 'hhgttg'
+        drop = Drop.find 'hhgttg'
         EM.stop
 
-        thumb = Pollex::Thumbnail.new drop
+        thumb = Thumbnail.new drop
         deny { thumb.file.nil? }
       end
     end

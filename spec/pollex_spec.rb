@@ -3,14 +3,13 @@ require 'rack/test'
 require 'support/vcr'
 
 require 'pollex'
-require 'pollex/app'
 
-describe Pollex::App do
+describe Pollex do
 
   include Rack::Test::Methods
 
   def app
-    Pollex::App.tap { |app| app.set :environment, :test }
+    Pollex.tap { |app| app.set :environment, :test }
   end
 
   it 'redirects the home page to the CloudApp product page' do
