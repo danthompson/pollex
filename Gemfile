@@ -1,7 +1,10 @@
 source :gemcutter
 
+gem 'em-http-request'
+gem 'em-synchrony'
 gem 'mini_magick'
-gem 'sinatra-synchrony'
+gem 'rack-fiber_pool'
+gem 'sinatra'
 gem 'thin'
 gem 'yajl-ruby'
 

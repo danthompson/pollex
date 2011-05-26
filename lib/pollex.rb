@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'sinatra/synchrony'
 
 require_relative 'drop'
 require_relative 'thumbnail'
@@ -18,7 +17,6 @@ require_relative 'thumbnail'
 # using **MiniMagick**. Any non-image Drop returns an icon representing its
 # type.
 class Pollex < Sinatra::Base
-  register Sinatra::Synchrony
 
   # Load New Relic RPM and Hoptoad in the production and staging environments.
   configure(:production, :staging) do
@@ -34,6 +32,14 @@ class Pollex < Sinatra::Base
 
       use HoptoadNotifier::Rack
       enable :raise_errors
+    end
+  end
+
+  # Use a fiber pool to serve **Pollex** outside of the test environment.
+  configure do
+    unless test?
+      require 'rack/fiber_pool'
+      use Rack::FiberPool
     end
   end
 

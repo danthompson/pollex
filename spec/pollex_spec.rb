@@ -9,7 +9,7 @@ describe Pollex do
   include Rack::Test::Methods
 
   def app
-    Pollex.tap { |app| app.set :environment, :test }
+    Pollex
   end
 
   it 'redirects the home page to the CloudApp product page' do
