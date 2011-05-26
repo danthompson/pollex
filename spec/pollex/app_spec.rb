@@ -10,62 +10,84 @@ describe Pollex::App do
   include Rack::Test::Methods
 
   def app
-    Pollex::App
+    Pollex::App.tap { |app| app.set :environment, :test }
   end
 
   it 'redirects the home page to the CloudApp product page' do
     get '/'
 
-    last_response.redirect?.must_equal true
-    last_response.headers['Location'].must_equal 'http://getcloudapp.com'
-    last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
+    assert { last_response.redirect? }
+
+    headers = last_response.headers
+    assert { headers['Location'] == 'http://getcloudapp.com' }
+    assert { headers['Cache-Control'] == 'public, max-age=31557600' }
   end
 
   it 'redirects the favicon to the CloudApp favicon' do
     get '/favicon.ico'
 
-    last_response.redirect?.must_equal true
-    last_response.headers['Location'].must_equal 'http://cl.ly/favicon.ico'
-    last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
+    assert {last_response.redirect? }
+
+    headers = last_response.headers
+    assert { headers['Location'] == 'http://cl.ly/favicon.ico' }
+    assert { headers['Cache-Control'] == 'public, max-age=31557600' }
   end
 
   it 'returns thunbnail for drop' do
-    VCR.use_cassette 'small', :record => :none do
-      get '/hhgttg'
+    VCR.use_cassette 'small' do
+      EM.synchrony do
+        get '/hhgttg'
+        EM.stop
 
-      last_response.ok?.must_equal true
-      last_response.headers['Content-Type'].must_equal 'image/png'
-      last_response.headers['Content-Disposition'].must_equal 'inline'
-      last_response.headers['Cache-Control'].must_equal 'public, max-age=900'
+        assert { last_response.ok? }
+
+        headers = last_response.headers
+        assert { headers['Content-Type'] == 'image/png' }
+        assert { headers['Content-Disposition'] == 'inline' }
+        assert { headers['Cache-Control'] == 'public, max-age=900' }
+      end
     end
   end
 
   it 'returns not found for a nonexistent drop' do
-    VCR.use_cassette 'nonexistent', :record => :none do
-      get '/hhgttg'
+    VCR.use_cassette 'nonexistent' do
+      EM.synchrony do
+        get '/hhgttg'
+        EM.stop
 
-      last_response.not_found?.must_equal true
-      last_response.body.must_equal '<h1>Not Found</h1>'
+        assert { last_response.not_found? }
+        last_response.body == '<h1>Not Found</h1>'
+      end
     end
   end
 
   it 'redirects to the icon for a non-image drop' do
-    VCR.use_cassette 'text', :record => :none do
-      get '/hhgttg'
+    VCR.use_cassette 'text' do
+      EM.synchrony do
+        get '/hhgttg'
+        EM.stop
 
-      last_response.redirect?.must_equal true
-      last_response.headers['Location'].must_equal 'http://example.org/icons/text.png'
-      last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
+        assert { last_response.redirect? }
+
+        headers = last_response.headers
+        assert { headers['Location'] == 'http://example.org/icons/text.png' }
+        assert { headers['Cache-Control'] == 'public, max-age=31557600' }
+      end
     end
   end
 
   it 'redirects to the unknown icon for a file type without an icon' do
-    VCR.use_cassette 'pdf', :record => :new_episodes do
-      get '/hhgttg'
+    VCR.use_cassette 'pdf' do
+      EM.synchrony do
+        get '/hhgttg'
+        EM.stop
 
-      last_response.redirect?.must_equal true
-      last_response.headers['Location'].must_equal 'http://example.org/icons/unknown.png'
-      last_response.headers['Cache-Control'].must_equal 'public, max-age=31557600'
+        assert { last_response.redirect? }
+
+        headers = last_response.headers
+        assert { headers['Location'] == 'http://example.org/icons/unknown.png' }
+        assert { headers['Cache-Control'] == 'public, max-age=31557600' }
+      end
     end
   end
 

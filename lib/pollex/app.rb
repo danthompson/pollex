@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/synchrony'
 
 class Pollex
 
@@ -10,6 +11,7 @@ class Pollex
   # using **MiniMagick**. Any non-image Drop returns an icon representing its
   # type.
   class App < Sinatra::Base
+    register Sinatra::Synchrony
 
     # Load New Relic RPM and Hoptoad in the production and staging environments.
     configure(:production, :staging) do

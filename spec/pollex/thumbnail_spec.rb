@@ -7,65 +7,93 @@ require 'pollex'
 describe Pollex::Thumbnail do
 
   it 'generates a thumbnail' do
-    VCR.use_cassette 'same_size', :record => :none do
-      thumb = Pollex::Thumbnail.new Pollex::Drop.find('hhgttg')
+    EM.synchrony do
+      VCR.use_cassette 'same_size' do
+        drop = Pollex::Drop.find 'hhgttg'
+        EM.stop
 
-      thumb.wont_be_nil
-      thumb.must_be_kind_of Pollex::Thumbnail
+        thumb = Pollex::Thumbnail.new drop
+        deny   { thumb.nil? }
+        assert { thumb.is_a? Pollex::Thumbnail }
 
-      thumb.file.closed?.wont_equal true
-      MiniMagick::Image.open(thumb.file.path)['dimensions'].
-        must_equal [ 200, 150 ]
+        deny { thumb.file.closed? }
+        assert do
+          MiniMagick::Image.open(thumb.file.path)['dimensions'] == [ 200, 150 ]
+        end
 
-      thumb.filename.must_equal 'cover.png'
-      thumb.type.must_equal    '.png'
+        assert { thumb.filename == 'cover.png' }
+        assert { thumb.type     == '.png' }
+      end
     end
   end
 
   it 'scales down a large image' do
-    VCR.use_cassette 'large_same_dimensions', :record => :none do
-      thumb = Pollex::Thumbnail.new Pollex::Drop.find('hhgttg')
+    EM.synchrony do
+      VCR.use_cassette 'large_same_dimensions' do
+        drop = Pollex::Drop.find 'hhgttg'
+        EM.stop
 
-      MiniMagick::Image.open(thumb.file.path)['dimensions'].
-        must_equal [ 200, 150 ]
+        thumb = Pollex::Thumbnail.new drop
+
+        assert do
+          MiniMagick::Image.open(thumb.file.path)['dimensions'] == [ 200, 150 ]
+        end
+      end
     end
   end
 
   it 'scales down and crops a large image' do
-    VCR.use_cassette 'large_square', :record => :none do
-      thumb = Pollex::Thumbnail.new Pollex::Drop.find('hhgttg')
+    EM.synchrony do
+      VCR.use_cassette 'large_square' do
+        drop = Pollex::Drop.find 'hhgttg'
+        EM.stop
 
-      MiniMagick::Image.open(thumb.file.path)['dimensions'].
-        must_equal [ 200, 150 ]
+        thumb = Pollex::Thumbnail.new drop
+
+        assert do
+          MiniMagick::Image.open(thumb.file.path)['dimensions'] == [ 200, 150 ]
+        end
+      end
     end
   end
 
   it "doesn't scale up a small image" do
-    VCR.use_cassette 'small', :record => :none do
-      thumb = Pollex::Thumbnail.new Pollex::Drop.find('hhgttg')
+    EM.synchrony do
+      VCR.use_cassette 'small' do
+        drop = Pollex::Drop.find 'hhgttg'
+        EM.stop
 
-      MiniMagick::Image.open(thumb.file.path)['dimensions'].
-        must_equal [ 1, 1 ]
-    end
-  end
+        thumb = Pollex::Thumbnail.new drop
 
-  it "doesn't thumbmail a nonexistent drop" do
-    VCR.use_cassette 'nonexistent', :record => :none do
-      lambda { Pollex::Thumbnail.new Pollex::Drop.find('hhgttg') }.
-        must_raise Pollex::Drop::NotFound
+        assert do
+          MiniMagick::Image.open(thumb.file.path)['dimensions'] == [ 1, 1 ]
+        end
+      end
     end
   end
 
   it "doesn't thumbnail a non-image" do
-    VCR.use_cassette 'text', :record => :none do
-      lambda { Pollex::Thumbnail.new(Pollex::Drop.find('hhgttg')).file }.
-        must_raise Pollex::Thumbnail::NotImage
+    EM.synchrony do
+      VCR.use_cassette 'text' do
+        drop = Pollex::Drop.find 'hhgttg'
+        EM.stop
+
+        thumb = Pollex::Thumbnail.new drop
+
+        assert { rescuing { thumb.file }.is_a? Pollex::Thumbnail::NotImage }
+      end
     end
   end
 
   it 'handles unicode urls' do
-    VCR.use_cassette 'unicode', :record => :none do
-      Pollex::Thumbnail.new(Pollex::Drop.find('hhgttg')).file.wont_equal nil
+    EM.synchrony do
+      VCR.use_cassette 'unicode' do
+        drop = Pollex::Drop.find 'hhgttg'
+        EM.stop
+
+        thumb = Pollex::Thumbnail.new drop
+        deny { thumb.file.nil? }
+      end
     end
   end
 
