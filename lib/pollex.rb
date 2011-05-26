@@ -1,3 +1,4 @@
+require 'eventmachine'
 require 'sinatra/base'
 
 require_relative 'drop'
@@ -25,7 +26,10 @@ class Pollex < Sinatra::Base
     # Add your Hoptoad API key to the environment variable `HOPTOAD_API_KEY`
     # to use Hoptoad to catalog your exceptions.
     if ENV['HOPTOAD_API_KEY']
+      require 'active_support'
+      require 'active_support/core_ext/object/blank'
       require 'hoptoad_notifier'
+
       HoptoadNotifier.configure do |config|
         config.api_key = ENV['HOPTOAD_API_KEY']
       end
@@ -63,14 +67,19 @@ class Pollex < Sinatra::Base
   # render a file type icon. Thumbnails are cached for 15 minutes and file
   # type icons are cached for one year.
   get '/:slug' do |slug|
-    thumbnail = Thumbnail.new find_drop(slug)
+    begin
+      thumbnail = Thumbnail.new find_drop(slug)
 
-    if thumbnail.drop.image?
-      cache_control :public, :max_age => 900
-      render_thumbnail thumbnail
-    else
-      cache_control :public, :max_age => 31557600
-      render_drop_icon thumbnail
+      if thumbnail.drop.image?
+        cache_control :public, :max_age => 900
+        render_thumbnail thumbnail
+      else
+        cache_control :public, :max_age => 31557600
+        render_drop_icon thumbnail
+      end
+    rescue => e
+      env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
+      HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
     end
   end
 
