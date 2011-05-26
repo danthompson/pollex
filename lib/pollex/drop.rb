@@ -15,7 +15,7 @@ class Pollex
 
     def self.find(slug)
       request = EM::HttpRequest.new("http://#{ base_uri }/#{ slug }").
-      get(:head => { 'Accept'=> 'application/json' })
+                                get(:head => { 'Accept'=> 'application/json' })
 
       raise NotFound unless request.response_header.status == 200
 
