@@ -1,3 +1,6 @@
+require 'em-synchrony'
+require 'em-synchrony/em-http'
+
 require 'mini_magick'
 require 'tempfile'
 
@@ -41,7 +44,10 @@ protected
 
   # Load and return the **Drop's** remote file.
   def image
-    @image ||= MiniMagick::Image.open(remote_url)
+    @image ||= begin
+                 request = EM::HttpRequest.new(remote_url).get
+                 MiniMagick::Image.read request.response
+               end
   end
 
   # Resize `image` preserving aspect ratio and crop to fit within 250x150.
