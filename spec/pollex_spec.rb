@@ -22,16 +22,6 @@ describe Pollex do
     assert { headers['Cache-Control'] == 'public, max-age=31557600' }
   end
 
-  it 'redirects the favicon to the CloudApp favicon' do
-    get '/favicon.ico'
-
-    assert {last_response.redirect? }
-
-    headers = last_response.headers
-    assert { headers['Location'] == 'http://cl.ly/favicon.ico' }
-    assert { headers['Cache-Control'] == 'public, max-age=31557600' }
-  end
-
   it 'returns thunbnail for drop' do
     VCR.use_cassette 'small' do
       EM.synchrony do

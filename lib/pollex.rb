@@ -57,12 +57,6 @@ class Pollex < Sinatra::Base
     redirect 'http://getcloudapp.com'
   end
 
-  # Redirect to the public app's favicon. Response is cached for one year.
-  get '/favicon.ico' do
-    cache_control :public, :max_age => 31557600
-    redirect 'http://cl.ly/favicon.ico'
-  end
-
   # Generate and render a thumbnail for an image `Drop` given its slug or
   # render a file type icon. Thumbnails are cached for 15 minutes and file
   # type icons are cached for one year.
