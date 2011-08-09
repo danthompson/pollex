@@ -22,7 +22,23 @@ class Drop < OpenStruct
   end
 
   def image?
-    item_type == 'image'
+    %w( bmp
+        gif
+        ico
+        jp2
+        jpe
+        jpeg
+        jpf
+        jpg
+        jpg2
+        jpgm
+        png ).include? extension
+  end
+
+private
+
+  def extension
+    File.extname(content_url)[1..-1].to_s.downcase if content_url
   end
 
 end

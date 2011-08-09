@@ -5,16 +5,29 @@ require 'drop'
 
 describe Drop do
 
-  it 'is not an image' do
-    drop = Drop.new :item_type => 'text'
-
-    deny { drop.image? }
+  def self.subject(&block)
+    define_method :subject, &block
   end
 
-  it 'is an image' do
-    drop = Drop.new :item_type => 'image'
 
-    assert { drop.image? }
+  describe 'an image' do
+    subject do
+      Drop.new :content_url => 'http://cl.ly/hhgttg/cover.png'
+    end
+
+    it 'is an image' do
+      assert { subject.image? }
+    end
+  end
+
+  describe 'a text file' do
+    subject do
+      Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.txt'
+    end
+
+    it 'is not an image' do
+      deny { subject.image? }
+    end
   end
 
   it 'finds a drop' do
