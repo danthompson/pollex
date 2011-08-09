@@ -14,6 +14,6 @@ gem 'newrelic_rpm'
 group :test do
   gem 'rack-test'
   gem 'vcr'
-  gem 'webmock'
+  gem 'webmock', :git => 'https://github.com/bblimke/webmock.git'
   gem 'wrong'
 end
