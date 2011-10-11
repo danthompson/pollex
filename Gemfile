@@ -1,7 +1,7 @@
 source :gemcutter
 
-gem 'em-http-request', :git => 'https://github.com/igrigorik/em-http-request.git'
-gem 'em-synchrony',    :git => 'https://github.com/igrigorik/em-synchrony.git'
+gem 'em-http-request', '~> 1.0'
+gem 'em-synchrony',    '~> 1.0'
 gem 'mini_magick'
 gem 'rack-fiber_pool'
 gem 'sinatra'
@@ -14,7 +14,7 @@ gem 'newrelic_rpm'
 group :test do
   gem 'rack-test'
   gem 'vcr'
-  gem 'webmock', :git => 'https://github.com/bblimke/webmock.git'
+  gem 'webmock'
   gem 'wrong'
 
   gem 'guard'

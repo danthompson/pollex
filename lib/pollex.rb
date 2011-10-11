@@ -60,7 +60,7 @@ class Pollex < Sinatra::Base
   end
 
   # Serve static assets from `/public`
-  set :public, 'public'
+  set :public_folder, 'public'
 
   # The home page. Nothing to see here. Redirect to the CloudApp product page.
   # Response is cached for one year.
@@ -123,7 +123,7 @@ protected
 
   # Returns true if the icon for the given `type` exists.
   def icon_exists?(type)
-    File.exists? File.join(settings.public, 'icons', "#{ type }.png")
+    File.exists? File.join(settings.public_folder, 'icons', "#{ type }.png")
   end
 
 end
