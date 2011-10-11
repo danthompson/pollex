@@ -43,13 +43,14 @@ protected
     drop.remote_url
   end
 
-  # Load and return the **Drop's** remote file.
+  # Return the **MiniMagick::Image** for the **Drop**.
   def image
-    @image ||= begin
-                 request = EM::HttpRequest.new(remote_url).get
+    @image ||= MiniMagick::Image.read(data, extname)
+  end
 
-                 MiniMagick::Image.read request.response, extname
-               end
+  # Download and return the **Drop's** remote file.
+  def data
+    EM::HttpRequest.new(remote_url).get.response
   end
 
   # Resize `image` preserving aspect ratio and crop to fit within 250x150.
