@@ -22,6 +22,7 @@ class Pollex < Sinatra::Base
   # Load New Relic RPM and Hoptoad in the production and staging environments.
   configure(:production, :staging) do
     require 'newrelic_rpm'
+    require_relative 'newrelic_instrumentation'
 
     # Add your Hoptoad API key to the environment variable `HOPTOAD_API_KEY`
     # to use Hoptoad to catalog your exceptions.
@@ -37,6 +38,17 @@ class Pollex < Sinatra::Base
       use HoptoadNotifier::Rack
       enable :raise_errors
     end
+  end
+
+  configure :development do
+    require 'new_relic/control'
+    NewRelic::Control.instance.init_plugin 'developer_mode' => true,
+      :env => 'development'
+
+    require 'new_relic/rack/developer_mode'
+    use NewRelic::Rack::DeveloperMode
+
+    require_relative 'newrelic_instrumentation'
   end
 
   # Use a fiber pool to serve **Pollex** outside of the test environment.
