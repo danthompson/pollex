@@ -1,3 +1,18 @@
+GIT
+  remote: https://github.com/sconover/wrong.git
+  revision: 003d1903e11124de08d35ffc01cf8dd2b920d64f
+  branch: rb-1.9.3-p0
+  specs:
+    wrong (0.6.0)
+      ParseTree (~> 3.0)
+      diff-lcs (~> 1.1.2)
+      file-tail (~> 1.0)
+      predicated (>= 0.2.3)
+      ruby2ruby (~> 1.2)
+      ruby_parser (~> 2.0.4)
+      sexp_processor (~> 3.0)
+      sourcify (>= 0.3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -46,7 +61,7 @@ GEM
       sexp_processor (~> 3.0)
     ruby_parser (2.0.6)
       sexp_processor (~> 3.0)
-    sexp_processor (3.0.7)
+    sexp_processor (3.0.8)
     sinatra (1.3.1)
       rack (~> 1.3, >= 1.3.4)
       rack-protection (~> 1.1, >= 1.1.2)
@@ -62,20 +77,11 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     tilt (1.3.3)
-    tins (0.3.1)
+    tins (0.3.3)
     vcr (1.11.3)
     webmock (1.7.6)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
-    wrong (0.5.6)
-      ParseTree (~> 3.0)
-      diff-lcs (~> 1.1.2)
-      file-tail (~> 1.0)
-      predicated (>= 0.2.3)
-      ruby2ruby (~> 1.2)
-      ruby_parser (~> 2.0.4)
-      sexp_processor (~> 3.0)
-      sourcify (>= 0.3.0)
     yajl-ruby (1.0.0)
 
 PLATFORMS
@@ -93,5 +99,5 @@ DEPENDENCIES
   thin
   vcr
   webmock
-  wrong
+  wrong!
   yajl-ruby

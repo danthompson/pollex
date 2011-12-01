@@ -15,5 +15,6 @@ group :test do
   gem 'rack-test'
   gem 'vcr'
   gem 'webmock'
-  gem 'wrong'
+  gem 'wrong', :git    => 'https://github.com/sconover/wrong.git',
+               :branch => 'rb-1.9.3-p0'
 end
