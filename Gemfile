@@ -16,11 +16,4 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'wrong'
-
-  gem 'guard'
-  gem 'guard-bundler'
-  gem 'guard-minitest', :git    => 'https://github.com/lmarburger/guard-minitest.git',
-                        :branch => 'add_load_path_option'
-  gem 'growl'
-  gem 'rb-fsevent'
 end
