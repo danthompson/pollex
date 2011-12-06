@@ -45,7 +45,7 @@ describe Pollex do
         EM.stop
 
         assert { last_response.not_found? }
-        last_response.body == '<h1>Not Found</h1>'
+        assert { last_response.body.include?('Sorry, no drops live here') }
       end
     end
   end

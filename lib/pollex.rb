@@ -84,14 +84,14 @@ class Pollex < Sinatra::Base
         render_drop_icon thumbnail
       end
     rescue => e
-      env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
+      env['async.callback'].call [ 500, {}, error_content_for(:error) ]
       HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
     end
   end
 
   # Don't need to return anything special for a 404.
   not_found do
-    not_found '<h1>Not Found</h1>'
+    not_found error_content_for(:not_found)
   end
 
 protected
@@ -124,6 +124,11 @@ protected
   # Returns true if the icon for the given `type` exists.
   def icon_exists?(type)
     File.exists? File.join(settings.public_folder, 'icons', "#{ type }.png")
+  end
+
+  def error_content_for(type)
+    type = type.to_s.gsub /_/, '-'
+    File.read File.join(settings.public_folder, "#{ type }.html")
   end
 
 end

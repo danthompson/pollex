@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding; 0;
+}
+
+body {
+  background: #fff;
+  color: #000;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  text-align: center;
+}
+
+h1 {
+  background: url("/images/error-page-logo.png") center top no-repeat;
+  color: #474747;
+  -webkit-font-smoothing: antialiased;
+  font-size: 36px;
+  margin-bottom: 32px;
+  padding-top: 98px;
+}
+
+h1 em {
+  font-weight: normal;
+  font-style: normal;
+}
+
+h2 {
+  color: #AAA;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  color: #AAA;
+  line-height: 18px;
+  margin-top: 12px;
+}
+
+a:link, a:visited {
+  color: #477DAF;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.wrapper {
+  margin: 80px auto;
+  width: 480px;
+}
